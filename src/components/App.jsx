@@ -64,6 +64,11 @@ export default function App() {
   };
 
   const handleLoadMore = () => {
+    if (images.length >= totalImages) {
+      toast.warn('No more images to load.');
+      return;
+    }
+
     setPage(prevPage => prevPage + 1);
   };
 
@@ -75,7 +80,7 @@ export default function App() {
 
       {loading && <Loader />}
 
-      {totalImages !== images.length && <Button onClick={handleLoadMore} />}
+      {images.length < totalImages && <Button onClick={handleLoadMore} />}
 
       <ToastContainer position="top-center" autoClose={1500} />
 
