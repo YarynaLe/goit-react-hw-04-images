@@ -39,7 +39,6 @@ export default function App() {
         setLoading(false);
       })
       .catch(error => console.log(error));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchQuery]);
 
   const searchQueryValue = value => {
@@ -52,7 +51,6 @@ export default function App() {
     setPage(1);
     setTotalImages(0);
     setImages([]);
-    // showLoadMoreBtn(false);
   };
 
   const getModalImage = imageUrl => {
