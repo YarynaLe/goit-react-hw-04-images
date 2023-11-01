@@ -35,10 +35,11 @@ export default function App() {
         }
 
         setImages(prevImage => [...prevImage, ...resp.images]);
-        setTotalImages(resp.TotalHits);
+        setTotalImages(resp.totalImages);
         setLoading(false);
       })
       .catch(error => console.log(error));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchQuery]);
 
   const searchQueryValue = value => {
@@ -61,13 +62,12 @@ export default function App() {
     setLargeImage('');
   };
 
-  const handleLoadMore = () => {
-    if (images.length >= totalImages) {
-      toast.warn('No more images to load.');
-      return;
-    }
+  const canLoadMore = images.length < totalImages;
 
-    setPage(prevPage => prevPage + 1);
+  const handleLoadMore = () => {
+    if (canLoadMore) {
+      setPage(prevPage => prevPage + 1);
+    }
   };
 
   return (
@@ -78,7 +78,7 @@ export default function App() {
 
       {loading && <Loader />}
 
-      {images.length < totalImages && <Button onClick={handleLoadMore} />}
+      {canLoadMore && <Button onClick={handleLoadMore} />}
 
       <ToastContainer position="top-center" autoClose={1500} />
 
